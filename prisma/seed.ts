@@ -8,6 +8,15 @@ const adapter = new PrismaBetterSqlite3({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  const leaderEmail = "leader@example.com";
+  let leader = await prisma.user.findUnique({ where: { email: leaderEmail } });
+  if (!leader) {
+    leader = await prisma.user.create({
+      data: { email: leaderEmail, displayName: "Group Leader" },
+    });
+    console.log(`Created test leader user: ${leaderEmail}`);
+  }
+
   const groups = [
     {
       name: "Grace Community Church",
@@ -27,13 +36,30 @@ async function main() {
   ];
 
   for (const g of groups) {
-    const existing = await prisma.group.findFirst({ where: { name: g.name } });
-    if (!existing) {
-      await prisma.group.create({ data: g });
+    let group = await prisma.group.findFirst({ where: { name: g.name } });
+    if (!group) {
+      group = await prisma.group.create({ data: g });
       console.log(`Created group: ${g.name}`);
     } else {
       console.log(`Group already exists: ${g.name}`);
     }
+  }
+
+  const graceGroup = await prisma.group.findFirst({
+    where: { name: "Grace Community Church" },
+  });
+  if (graceGroup) {
+    await prisma.membership.upsert({
+      where: { userId_groupId: { userId: leader.id, groupId: graceGroup.id } },
+      update: { role: "LEADER", status: "ACTIVE" },
+      create: {
+        userId: leader.id,
+        groupId: graceGroup.id,
+        role: "LEADER",
+        status: "ACTIVE",
+      },
+    });
+    console.log(`${leaderEmail} is leader of Grace Community Church`);
   }
 }
 
