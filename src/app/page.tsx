@@ -1,4 +1,5 @@
-import { HeartHandshake, Mail, UserPlus, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { HeartHandshake, Mail, UserPlus, ArrowRight, KeyRound } from "lucide-react";
 
 export default async function HomePage({
   searchParams,
@@ -16,7 +17,8 @@ export default async function HomePage({
         <h1 className="text-2xl font-semibold text-amber-950">Community Gatherings</h1>
       </div>
       <p className="mt-3 text-gray-600">
-        Sign up or sign in with just your email — no password needed.
+        Sign up or sign in with just your email — no password needed. Setting
+        a password below lets you log in directly next time.
       </p>
 
       {error === "missing-email" && (
@@ -57,6 +59,19 @@ export default async function HomePage({
             className="mt-1 w-full rounded border px-3 py-2"
           />
         </div>
+        <div>
+          <label className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
+            <KeyRound size={16} className="text-amber-600" />
+            Set a password{" "}
+            <span className="text-gray-400">(optional, new members only)</span>
+          </label>
+          <input
+            type="password"
+            name="password"
+            minLength={8}
+            className="mt-1 w-full rounded border px-3 py-2"
+          />
+        </div>
         <button
           type="submit"
           className="flex items-center gap-1.5 rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
@@ -65,6 +80,14 @@ export default async function HomePage({
           <ArrowRight size={16} />
         </button>
       </form>
+
+      <p className="mt-4 text-sm text-gray-600">
+        Already set a password?{" "}
+        <Link href="/login" className="text-amber-700 underline">
+          Sign in with a password
+        </Link>
+        .
+      </p>
     </main>
   );
 }

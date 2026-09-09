@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
-import { Church, Users, UserCircle, Bell } from "lucide-react";
+import { Church, Users, UserCircle, Bell, LogIn } from "lucide-react";
 import "./globals.css";
 import { getSessionUser } from "@/lib/session";
 
@@ -35,7 +35,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               <Church size={20} className="text-amber-600" />
               Community Gatherings
             </Link>
-            {user && (
+            {user ? (
               <>
                 <Link href="/groups" className="flex items-center gap-1.5 text-gray-700 hover:text-amber-700">
                   <Users size={18} />
@@ -50,6 +50,14 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
                   Notifications
                 </Link>
               </>
+            ) : (
+              <Link
+                href="/login"
+                className="ml-auto flex items-center gap-1.5 text-gray-700 hover:text-amber-700"
+              >
+                <LogIn size={18} />
+                Log in
+              </Link>
             )}
           </nav>
         </header>

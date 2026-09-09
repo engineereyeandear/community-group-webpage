@@ -23,18 +23,30 @@ enum TopicStatus {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
-  displayName   String
-  createdAt     DateTime       @default(now())
-  memberships   Membership[]
-  topics        Topic[]        @relation("SuggestedTopics")
-  notifications Notification[]
-  loginTokens   LoginToken[]
-  votes         Vote[]
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  displayName         String
+  passwordHash        String?
+  createdAt           DateTime             @default(now())
+  memberships         Membership[]
+  topics              Topic[]              @relation("SuggestedTopics")
+  notifications       Notification[]
+  loginTokens         LoginToken[]
+  passwordResetTokens PasswordResetToken[]
+  votes               Vote[]
 }
 
 model LoginToken {
+  id        String    @id @default(cuid())
+  token     String    @unique
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model PasswordResetToken {
   id        String    @id @default(cuid())
   token     String    @unique
   user      User      @relation(fields: [userId], references: [id])
