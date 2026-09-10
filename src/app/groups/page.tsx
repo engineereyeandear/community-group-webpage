@@ -48,14 +48,14 @@ export default async function GroupsPage() {
                 <div className="shrink-0">
                   {!membership && (
                     <form action={`/api/groups/${group.id}/join`} method="POST">
-                      <button className="flex items-center gap-1.5 rounded bg-amber-600 px-3 py-1.5 text-sm text-white hover:bg-amber-700">
+                      <button className="flex items-center gap-1.5 rounded bg-amber-700 px-3 py-1.5 text-sm text-white hover:bg-amber-800">
                         <UserPlus size={15} />
                         Request to join
                       </button>
                     </form>
                   )}
                   {membership?.status === "PENDING" && (
-                    <span className="flex items-center gap-1.5 text-sm text-amber-600">
+                    <span className="flex items-center gap-1.5 text-sm text-amber-700">
                       <Clock3 size={15} />
                       Request pending
                     </span>

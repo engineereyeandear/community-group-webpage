@@ -26,11 +26,21 @@ export async function POST(
     const topic = await prisma.topic.findUnique({ where: { id: topicId } });
 
     if (votingOpen && topic && topic.groupId === id && topic.status === "SUGGESTED") {
-      await prisma.vote.upsert({
-        where: { userId_groupId: { userId: user.id, groupId: id } },
-        update: { topicId },
-        create: { userId: user.id, groupId: id, topicId },
+      // A member can vote for as many suggested topics in this group as they
+      // like. Clicking "Vote" on a topic they haven't voted for adds a vote;
+      // clicking it again (now showing as "Your vote") removes it, without
+      // touching any votes they've cast on other topics in the group.
+      const existingVote = await prisma.vote.findUnique({
+        where: { userId_topicId: { userId: user.id, topicId } },
       });
+
+      if (existingVote) {
+        await prisma.vote.delete({ where: { id: existingVote.id } });
+      } else {
+        await prisma.vote.create({
+          data: { userId: user.id, groupId: id, topicId },
+        });
+      }
     }
   }
 

@@ -6,7 +6,11 @@ export default defineConfig({
   workers: 1,
   retries: process.env.CI ? 1 : 0,
   timeout: 30_000,
-  expect: { timeout: 10_000 },
+  // A little extra headroom for the first hit to a route right after the
+  // dev server (re)starts, since Next.js compiles routes on demand and the
+  // group page now does a bit more work per visit (checking for and
+  // archiving expired topics).
+  expect: { timeout: 15_000 },
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
     baseURL: "http://localhost:3000",

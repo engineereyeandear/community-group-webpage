@@ -105,7 +105,9 @@ model Vote {
   topicId   String
   createdAt DateTime @default(now())
 
-  @@unique([userId, groupId])
+  // A member can now vote for as many suggested topics in a group as they
+  // like; the constraint is one vote per topic, not one vote per group.
+  @@unique([userId, topicId])
 }
 
 model Notification {
