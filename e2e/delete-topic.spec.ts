@@ -76,7 +76,7 @@ test("the leader can delete a selected topic, which sends a cancellation notice 
     .getByRole("button", { name: "Approve" })
     .click();
 
-  const topicTitle = `Selected Then Cancelled ${Date.now()}`;
+  const topicTitle = `Movie Night Discussion ${Date.now()}`;
   await leaderPage.fill('input[name="title"]', topicTitle);
   await leaderPage.getByRole("button", { name: "Suggest topic" }).click();
 
@@ -94,7 +94,9 @@ test("the leader can delete a selected topic, which sends a cancellation notice 
   await expect(leaderPage.locator("li", { hasText: topicTitle })).toHaveCount(0);
 
   await memberPage.goto("/notifications");
-  await expect(memberPage.locator("li", { hasText: "cancelled" })).toContainText(topicTitle);
+  await expect(
+    memberPage.locator("li", { hasText: "has cancelled the discussion" })
+  ).toContainText(topicTitle);
 
   await memberContext.close();
   await leaderContext.close();
