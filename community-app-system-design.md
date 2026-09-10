@@ -42,7 +42,7 @@ A **topic** record captures a single suggestion: which group it belongs to, who 
 
 A **vote** record links a user to a specific topic (not just to a group), which is what allows a member to vote for more than one suggested topic in the same group at once — the constraint is one vote per person per topic, not one vote per person per group.
 
-A **notification** record tracks what was sent, to whom, and about which topic — useful both for debugging delivery issues and for later showing someone a history of what they've been notified about, even though the actual delivery for version 1 happens over email rather than through anything stored and displayed in-app.
+A **notification** record tracks what was sent, to whom, and (optionally) about which topic — useful both for debugging delivery issues and for later showing someone a history of what they've been notified about, even though the actual delivery for version 1 happens over email rather than through anything stored and displayed in-app. Its message is written as a self-contained, human-readable string at the moment it's sent, and its link to a topic is optional, so a notification survives intact even if the topic it was originally about is later deleted (for example, a cancellation).
 
 ## Technical Approach
 
@@ -70,7 +70,11 @@ A selected topic is automatically archived once its gathering date and time have
 
 Alongside the original passwordless email-link sign-in, members can now optionally set a password (at sign-up, or later from their profile) to log in directly, and a "forgot password" flow lets them reset it if forgotten — both still working entirely locally for this prototype, the same way the sign-in link does, with no real email service wired up yet.
 
-The interface has also been given a visual pass: icons throughout the UI, a warmer color palette in place of the original blue, and a round of accessibility fixes to text and buttons that had too little contrast against their background to read comfortably.
+The interface has also been given a visual pass: icons throughout the UI, a warmer orange-and-black color palette in place of the original blue applied consistently across every page (not just the group pages), and a round of accessibility fixes to text and buttons that had too little contrast against their background to read comfortably.
+
+A group leader can now delete a topic outright — whether it's still just a suggestion, or one that's already been selected with a scheduled gathering date. Deleting a topic that had already been selected automatically sends every active group member a cancellation notice, so no one is left expecting a gathering that's been called off. Only the group's leader sees the delete option; regular members cannot delete topics.
+
+The automated test suite now runs against both Chrome and Firefox, both locally and in the GitHub Actions pipeline, so changes are verified against two browser engines rather than one.
 
 ## Still Open for Later
 

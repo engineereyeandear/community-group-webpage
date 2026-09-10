@@ -24,7 +24,7 @@ export default async function SignupSentPage({
       {verifyUrl ? (
         <a
           href={verifyUrl}
-          className="mt-6 inline-flex items-center gap-1.5 rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
+          className="mt-6 inline-flex items-center gap-1.5 rounded bg-amber-700 px-4 py-2 text-white hover:bg-amber-800"
         >
           <LogIn size={16} />
           Click here to finish signing in

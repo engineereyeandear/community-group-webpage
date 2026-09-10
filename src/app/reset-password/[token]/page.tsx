@@ -29,7 +29,7 @@ export default async function ResetPasswordPage({
         </p>
         <Link
           href="/forgot-password"
-          className="mt-6 inline-flex items-center gap-1.5 rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
+          className="mt-6 inline-flex items-center gap-1.5 rounded bg-amber-700 px-4 py-2 text-white hover:bg-amber-800"
         >
           Request a new link
         </Link>
@@ -62,7 +62,7 @@ export default async function ResetPasswordPage({
             name="password"
             required
             minLength={8}
-            className="mt-1 w-full rounded border px-3 py-2"
+            className="mt-1 w-full rounded border border-amber-300 bg-white px-3 py-2"
           />
         </div>
         <div>
@@ -72,12 +72,12 @@ export default async function ResetPasswordPage({
             name="confirmPassword"
             required
             minLength={8}
-            className="mt-1 w-full rounded border px-3 py-2"
+            className="mt-1 w-full rounded border border-amber-300 bg-white px-3 py-2"
           />
         </div>
         <button
           type="submit"
-          className="flex items-center gap-1.5 rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
+          className="flex items-center gap-1.5 rounded bg-amber-700 px-4 py-2 text-white hover:bg-amber-800"
         >
           <KeyRound size={16} />
           Save new password

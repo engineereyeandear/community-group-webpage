@@ -25,11 +25,11 @@ export default async function NotificationsPage() {
       </p>
       <ul className="mt-6 space-y-3">
         {notifications.map((n) => (
-          <li key={n.id} className="flex items-start gap-3 rounded border p-4">
+          <li key={n.id} className="flex items-start gap-3 rounded border border-amber-300 bg-amber-100 p-4">
             <CalendarClock size={18} className="mt-0.5 shrink-0 text-amber-600" />
             <div>
-              <p>{n.message}</p>
-              <p className="mt-1 text-xs text-gray-400">{n.createdAt.toLocaleString()}</p>
+              <p className="text-gray-900">{n.message}</p>
+              <p className="mt-1 text-xs text-gray-600">{n.createdAt.toLocaleString()}</p>
             </div>
           </li>
         ))}

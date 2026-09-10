@@ -45,36 +45,36 @@ export default async function HomePage({
             type="email"
             name="email"
             required
-            className="mt-1 w-full rounded border px-3 py-2"
+            className="mt-1 w-full rounded border border-amber-300 bg-white px-3 py-2"
           />
         </div>
         <div>
           <label className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
             <UserPlus size={16} className="text-amber-600" />
-            Display name <span className="text-gray-400">(new members only)</span>
+            Display name <span className="text-gray-600">(new members only)</span>
           </label>
           <input
             type="text"
             name="displayName"
-            className="mt-1 w-full rounded border px-3 py-2"
+            className="mt-1 w-full rounded border border-amber-300 bg-white px-3 py-2"
           />
         </div>
         <div>
           <label className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
             <KeyRound size={16} className="text-amber-600" />
             Set a password{" "}
-            <span className="text-gray-400">(optional, new members only)</span>
+            <span className="text-gray-600">(optional, new members only)</span>
           </label>
           <input
             type="password"
             name="password"
             minLength={8}
-            className="mt-1 w-full rounded border px-3 py-2"
+            className="mt-1 w-full rounded border border-amber-300 bg-white px-3 py-2"
           />
         </div>
         <button
           type="submit"
-          className="flex items-center gap-1.5 rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
+          className="flex items-center gap-1.5 rounded bg-amber-700 px-4 py-2 text-white hover:bg-amber-800"
         >
           Continue
           <ArrowRight size={16} />

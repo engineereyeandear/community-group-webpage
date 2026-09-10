@@ -31,7 +31,7 @@ export default async function GroupsPage() {
         {groups.map((group) => {
           const membership = group.memberships[0];
           return (
-            <li key={group.id} className="rounded border bg-white p-4 shadow-sm">
+            <li key={group.id} className="rounded border border-amber-300 bg-amber-100 p-4 shadow-sm">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <Link

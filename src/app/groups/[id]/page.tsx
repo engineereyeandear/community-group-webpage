@@ -12,6 +12,7 @@ import {
   MessageSquarePlus,
   ThumbsUp,
   CalendarCheck,
+  Trash2,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
@@ -111,7 +112,7 @@ export default async function GroupDetailPage({
           ) : (
             <ul className="mt-4 space-y-3">
               {pendingRequests.map((m) => (
-                <li key={m.id} className="flex items-center justify-between rounded border bg-white p-3">
+                <li key={m.id} className="flex items-center justify-between rounded border border-amber-300 bg-amber-100 p-3">
                   <div>
                     <p className="font-medium">{m.user.displayName}</p>
                     <p className="text-sm text-gray-600">{m.user.email}</p>
@@ -242,30 +243,32 @@ export default async function GroupDetailPage({
                         </p>
                       )}
                     </div>
-                    {topic.status === "SUGGESTED" && (
+                    {(topic.status === "SUGGESTED" || (isLeader && topic.status === "SELECTED")) && (
                       <div className="flex shrink-0 flex-col items-end gap-2">
-                        {votingOpen ? (
-                          <form action={`/api/groups/${group.id}/vote`} method="POST">
-                            <input type="hidden" name="topicId" value={topic.id} />
-                            {hasMyVote ? (
-                              <button className="flex items-center gap-1.5 rounded bg-amber-700 px-3 py-1.5 text-sm text-white hover:bg-amber-800">
-                                <CheckCircle2 size={14} />
-                                Your vote
-                              </button>
-                            ) : (
-                              <button className="flex items-center gap-1.5 rounded border border-amber-600 bg-white px-3 py-1.5 text-sm text-amber-700 hover:bg-amber-50">
-                                <ThumbsUp size={14} />
-                                Vote
-                              </button>
-                            )}
-                          </form>
-                        ) : hasMyVote ? (
-                          <span className="flex items-center gap-1.5 text-sm font-medium text-amber-700">
-                            <CheckCircle2 size={15} />
-                            Your vote
-                          </span>
-                        ) : null}
-                        {isLeader && (
+                        {topic.status === "SUGGESTED" && (
+                          votingOpen ? (
+                            <form action={`/api/groups/${group.id}/vote`} method="POST">
+                              <input type="hidden" name="topicId" value={topic.id} />
+                              {hasMyVote ? (
+                                <button className="flex items-center gap-1.5 rounded bg-amber-700 px-3 py-1.5 text-sm text-white hover:bg-amber-800">
+                                  <CheckCircle2 size={14} />
+                                  Your vote
+                                </button>
+                              ) : (
+                                <button className="flex items-center gap-1.5 rounded border border-amber-600 bg-white px-3 py-1.5 text-sm text-amber-700 hover:bg-amber-50">
+                                  <ThumbsUp size={14} />
+                                  Vote
+                                </button>
+                              )}
+                            </form>
+                          ) : hasMyVote ? (
+                            <span className="flex items-center gap-1.5 text-sm font-medium text-amber-700">
+                              <CheckCircle2 size={15} />
+                              Your vote
+                            </span>
+                          ) : null
+                        )}
+                        {isLeader && topic.status === "SUGGESTED" && (
                           <form
                             action={`/api/topics/${topic.id}/select`}
                             method="POST"
@@ -280,6 +283,14 @@ export default async function GroupDetailPage({
                             <button className="flex items-center gap-1.5 rounded bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800">
                               <CalendarCheck size={14} />
                               Select
+                            </button>
+                          </form>
+                        )}
+                        {isLeader && (topic.status === "SUGGESTED" || topic.status === "SELECTED") && (
+                          <form action={`/api/topics/${topic.id}/delete`} method="POST">
+                            <button className="flex items-center gap-1.5 rounded border border-red-600 bg-white px-3 py-1.5 text-sm text-red-700 hover:bg-red-50">
+                              <Trash2 size={14} />
+                              Delete
                             </button>
                           </form>
                         )}

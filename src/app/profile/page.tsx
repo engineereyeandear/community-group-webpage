@@ -23,12 +23,12 @@ export default async function ProfilePage({
       </div>
       <p className="mt-2 text-gray-600">{user.email}</p>
 
-      <section className="mt-8 rounded border bg-white p-4">
+      <section className="mt-8 rounded border border-amber-300 bg-amber-100 p-4">
         <h2 className="flex items-center gap-1.5 text-lg font-medium text-amber-950">
           <KeyRound size={18} className="text-amber-600" />
           {user.passwordHash ? "Change password" : "Set a password"}
         </h2>
-        <p className="mt-1 text-sm text-gray-600">
+        <p className="mt-1 text-sm text-gray-700">
           {user.passwordHash
             ? "Update the password you use to log in directly."
             : "Add a password so you can log in directly next time, instead of using an email link."}
@@ -51,7 +51,7 @@ export default async function ProfilePage({
             required
             minLength={8}
             placeholder="New password"
-            className="w-full rounded border px-3 py-2"
+            className="w-full rounded border border-amber-300 bg-white px-3 py-2"
           />
           <input
             type="password"
@@ -59,11 +59,11 @@ export default async function ProfilePage({
             required
             minLength={8}
             placeholder="Confirm new password"
-            className="w-full rounded border px-3 py-2"
+            className="w-full rounded border border-amber-300 bg-white px-3 py-2"
           />
           <button
             type="submit"
-            className="flex items-center gap-1.5 rounded bg-amber-600 px-4 py-2 text-sm text-white hover:bg-amber-700"
+            className="flex items-center gap-1.5 rounded bg-amber-700 px-4 py-2 text-sm text-white hover:bg-amber-800"
           >
             <KeyRound size={15} />
             Save password

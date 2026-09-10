@@ -24,13 +24,13 @@ export default async function ForgotPasswordSentPage({
       {resetUrl ? (
         <a
           href={resetUrl}
-          className="mt-6 inline-flex items-center gap-1.5 rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
+          className="mt-6 inline-flex items-center gap-1.5 rounded bg-amber-700 px-4 py-2 text-white hover:bg-amber-800"
         >
           <KeyRound size={16} />
           Click here to reset your password
         </a>
       ) : (
-        <p className="mt-4 text-gray-500">
+        <p className="mt-4 text-gray-600">
           No link to show — double-check the email address and try again.
         </p>
       )}

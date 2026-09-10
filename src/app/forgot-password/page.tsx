@@ -35,12 +35,12 @@ export default async function ForgotPasswordPage({
             type="email"
             name="email"
             required
-            className="mt-1 w-full rounded border px-3 py-2"
+            className="mt-1 w-full rounded border border-amber-300 bg-white px-3 py-2"
           />
         </div>
         <button
           type="submit"
-          className="flex items-center gap-1.5 rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
+          className="flex items-center gap-1.5 rounded bg-amber-700 px-4 py-2 text-white hover:bg-amber-800"
         >
           <KeyRound size={16} />
           Send reset link
